@@ -23,27 +23,18 @@
             android:layout_marginTop="100dp" />
 
         <EditText
-            android:layout_width="260dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/editText"
-            android:textColor="#ffffff"
-            android:textSize="30dp"
-            android:layout_gravity="center"
-            android:singleLine="false"
-            android:textIsSelectable="true"
-            android:inputType="textCapWords|textCapCharacters"
-            android:linksClickable="false"
-            android:textAlignment="center"
-            android:layout_marginTop="70dp"
-            android:editable="false"
-            android:enabled="false"
+            android:inputType="textPersonName"
             android:hint="Answer"
+            android:ems="10"
+            android:id="@+id/editText_answer"
+            android:layout_gravity="center"
+            android:textAlignment="center"
             android:textColorHint="#ffffff"
-            android:textColorHighlight="#ffffff"
-            android:textColorLink="#ffffff"
-            android:typeface="sans"
-            android:elegantTextHeight="false"
-            android:clickable="false" />
+            android:textColor="#ffffff"
+            android:layout_marginTop="70dp"
+            android:textSize="30dp" />
 
         <ImageView
             android:layout_width="wrap_content"

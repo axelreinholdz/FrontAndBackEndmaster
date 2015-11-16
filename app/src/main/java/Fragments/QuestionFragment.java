@@ -29,7 +29,6 @@ public class QuestionFragment extends Fragment{
         TextView questionTextView = (TextView) rootVier.findViewById(R.id.textView_question);
         QuestionManager qm = new QuestionManager();
         Question q = qm.getQuestionById(1, getActivity());
-        Log.d("QUESTION_Layout", q.getAnswerText());
 
         questionTextView.setText(q.getQuestionText());
 
