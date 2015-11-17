@@ -74,7 +74,7 @@ public class HttpUtility {
             try{
                 return downloadUrl(urls[0]);
             } catch (IOException e) {
-                return "Unable to retrieve question. Url may be invalid.";
+                return "Unable to retrieve object. Url may be invalid.";
             }
         }
 

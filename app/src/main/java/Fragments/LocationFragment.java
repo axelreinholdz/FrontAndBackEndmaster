@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.melker.mapping.R;
 
+import controller.GPSManager;
 import controller.GPSTracker;
 import controller.QuestionManager;
 import model.Question;
@@ -40,7 +41,7 @@ public class LocationFragment extends Fragment{
 
         ImageButton takePictureButton = (ImageButton) rootVier.findViewById(R.id.imageButton_takePicture);
         ImageButton sendLocationButton = (ImageButton) rootVier.findViewById(R.id.imageButton_sendLocation);
-        TextView textViewTakePicture = (TextView) rootVier.findViewById(R.id.textView_takePicture);
+        final TextView textViewTakePicture = (TextView) rootVier.findViewById(R.id.textView_takePicture);
 
         QuestionManager qm = new QuestionManager();
         final Question q = qm.getQuestionById(1, getActivity());
@@ -51,6 +52,25 @@ public class LocationFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 //checkLocation
+
+                GPSManager gpsManager = new GPSManager();
+                double longitude = q.getLocationLongitude();
+                double latitude = q.getLocationLatitude();
+
+                boolean checkLocation ;
+
+                checkLocation = gpsManager.isAtRightLocation(getActivity(),latitude,longitude);
+
+                if(checkLocation){
+
+                    textViewTakePicture.setText("Right Location");
+                    //fm.beginTransaction().replace(R.id.content_frame, new QuestionFragment()).commit();
+                }
+                else{
+
+                }
+
+
                 /* function to get users coordinates
                 GPSTracker gps = new GPSTracker(getActivity());
 
@@ -64,7 +84,7 @@ public class LocationFragment extends Fragment{
                 }
                 */
 
-                fm.beginTransaction().replace(R.id.content_frame, new QuestionFragment()).commit();
+
             }
         });
 

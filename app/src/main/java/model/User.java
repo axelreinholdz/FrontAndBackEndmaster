@@ -10,6 +10,9 @@ public class User {
     private String password;
     private String location;
 
+    public User() {
+    }
+
     public User(int userId, String name, String email, String password, String location) {
         this.userId = userId;
         this.name = name;
@@ -57,6 +60,4 @@ public class User {
     public void setLocation(String location) {
         this.location = location;
     }
-    
-    
 }

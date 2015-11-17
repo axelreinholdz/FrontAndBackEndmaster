@@ -60,7 +60,7 @@
                             android:layout_height="wrap_content"
                             android:inputType="textEmailAddress"
                             android:ems="10"
-                            android:id="@+id/editText3"
+                            android:id="@+id/editText_email"
                             android:layout_gravity="center"
                             android:textAlignment="center"
                             android:text="Email"
@@ -84,7 +84,7 @@
                             android:layout_height="wrap_content"
                             android:inputType="textPassword"
                             android:ems="10"
-                            android:id="@+id/editText4"
+                            android:id="@+id/editText_password"
                             android:layout_gravity="center"
                             android:textAlignment="center"
                             android:singleLine="false"
@@ -109,11 +109,21 @@
                     <ImageButton
                         android:layout_width="184dp"
                         android:layout_height="52dp"
-                        android:id="@+id/imageButton_signUp"
-                        android:layout_gravity="center"
+                        android:id="@+id/signin_button"
+                        android:layout_gravity="center_horizontal|top"
                         android:src="@drawable/signin"
                         android:scaleType="centerInside"
                         android:background="#83d0f5" />
+
+                    <ImageButton
+                        android:layout_width="184dp"
+                        android:layout_height="52dp"
+                        android:id="@+id/signup_button"
+                        android:layout_gravity="center_horizontal|bottom"
+                        android:src="@drawable/signup"
+                        android:scaleType="centerInside"
+                        android:background="#83d0f5"
+                        android:layout_marginBottom="10dp" />
                 </FrameLayout>
             </LinearLayout>
         </LinearLayout>

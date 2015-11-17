@@ -27,45 +27,48 @@ public class QuestionManager {
 
     public Question getQuestionById(int QuestionNo, Context context) {
         //id from SYMPLCMS, set STRING to avoid CONVERTING INT TO STRING
-        String[] questionArray = {"1248"};
-        String url = "http://161.202.13.188:9000/api/object/get/";
-        url+=questionArray[QuestionNo - 1];
-        InputStream inputStream = null;
+        String url = "";
+        if (QuestionNo == 1) {
+            url = "http://161.202.13.188:9000/api/object/get/1324";
+        } else if (QuestionNo == 2) {
+            url = "http://161.202.13.188:9000/api/object/get/1250";
+        } else if (QuestionNo == 3) {
+            url = "http://161.202.13.188:9000/api/object/get/1316";
+        }
+
         Question newQuestion = new Question();
         String result = "";
-
-        HttpUtility httpU = new HttpUtility();
-
         try {
+
+            // GET object String
+            HttpUtility httpUtility = new HttpUtility();
 
             ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
             if(networkInfo != null && networkInfo.isConnected()){
-                result = httpU.download(url);
+                result = httpUtility.download(url);
                 Log.d("CONNECTION","Connection made");
             }
             else {
                 result = "No network connection available";
             }
 
-            Log.d("STRING",result);
-            //parse String to JSONObject
-
+            // parse String to JSONObject
             JSONObject obj = new JSONObject(result);
+
+            // change JSONObject to Java Class
             String QuestionText = obj.getString("QuestionText");
             String AnswerText = obj.getString("AnswerText");
             String Hint1 = obj.getString("Hint1");
-            String Hint2 = obj.getString("Hint2");
-            String Hint3 = obj.getString("Hint3");
+            double LocationLatitude = obj.getDouble("LocationLatitude");
+            double LocationLongitude = obj.getDouble("LocationLongitude");
             String questionPic = "https://s3-ap-southeast-1.amazonaws.com/symplcms/symplCMSTest/" + obj.getJSONObject("QuestionPic").getJSONObject("file").getString("name");
-            newQuestion = new Question(QuestionNo, QuestionText, AnswerText, Hint1, Hint2, Hint3, questionPic);
-
+            newQuestion = new Question(QuestionNo, QuestionText, AnswerText, Hint1, LocationLatitude, LocationLongitude, questionPic);
         } catch (Exception e) {
-           Log.d("InputStream", e.getLocalizedMessage());
+            Log.d("InputStream", e.getLocalizedMessage());
         }
 
         return newQuestion;
-
     }
 }

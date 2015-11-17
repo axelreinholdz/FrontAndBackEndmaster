@@ -45,7 +45,7 @@ public class QuestionFragment extends Fragment{
 
                 Log.d("Anwser",answer);
 
-                if(answer.equals(q.getAnswerText())){
+                if(answer.equalsIgnoreCase(q.getAnswerText())){
                     fm.beginTransaction().replace(R.id.content_frame, new AnswerFragment()).commit();
                 }
                 else{

@@ -21,23 +21,23 @@ public class Question {
     private String QuestionText;
     private String AnswerText;
     private String Hint1;
-    private String Hint2;
-    private String Hint3;
+    private double LocationLatitude;
+    private double LocationLongitude;
     private String QuestionPic;
 
     public Question(int QuestionNo,
                     String QuestionText,
                     String AnswerText,
                     String Hint1,
-                    String Hint2,
-                    String Hint3,
+                    double LocationLatitude,
+                    double LocationLongitude,
                     String QuestionPic){
         this.QuestionNo = QuestionNo;
         this.QuestionText  = QuestionText;
         this.AnswerText = AnswerText;
         this.Hint1 = Hint1;
-        this.Hint2 = Hint2;
-        this.Hint3 = Hint3;
+        this.LocationLatitude = LocationLatitude;
+        this.LocationLongitude = LocationLongitude;
         this.QuestionPic = QuestionPic;
     }
 
@@ -62,16 +62,15 @@ public class Question {
         return Hint1;
     }
 
-    public String getHint2(){
-        return Hint2;
+    public double getLocationLatitude(){
+        return LocationLatitude;
     }
 
-    public String getHint3(){
-        return Hint3;
+    public double getLocationLongitude(){
+        return LocationLongitude;
     }
 
     public String getQuestionPic(){
         return QuestionPic;
     }
-
 }

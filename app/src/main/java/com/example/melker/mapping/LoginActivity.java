@@ -5,8 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import controller.UserManager;
 
 /*
 import com.facebook.CallbackManager;
@@ -26,37 +30,10 @@ public class LoginActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.start);
+        setContentView(R.layout.signin);
 
-        /* facebook stuff
-        FacebookSdk.sdkInitialize(this.getApplicationContext());
-
-        callbackManager = CallbackManager.Factory.create();
-
-
-        info = (TextView)findViewById(R.id.info);
-
-        loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.setReadPermissions("user_friends");
-
-        LoginManager.getInstance().registerCallback(callbackManager,
-                new FacebookCallback<LoginResult>() {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-
-                    }
-
-                    @Override
-                    public void onCancel() {
-
-                    }
-
-                    @Override
-                    public void onError(FacebookException exception) {
-
-                    }
-
-                });*/
+        final EditText editTextEmail = (EditText) findViewById(R.id.editText_email);
+        final EditText editTextPassword = (EditText) findViewById(R.id.editText_password);
 
         ImageButton btnsignup = (ImageButton) findViewById(R.id.signup_button);
         btnsignup.setOnClickListener(new View.OnClickListener() {
@@ -72,12 +49,24 @@ public class LoginActivity extends Activity {
 
         ImageButton btn = (ImageButton) findViewById(R.id.signin_button);
         btn.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
+           @Override
+           public void onClick(View v) {
+              UserManager userManager = new UserManager();
 
-              Intent intent = new Intent(v.getContext(), MainActivity.class);
-              startActivityForResult(intent, 0);
-              finish();
+               String email = editTextEmail.getText().toString();
+               String password = editTextPassword.getText().toString();
+
+              if( userManager.login(email,password, LoginActivity.this) ){
+                  Intent intent = new Intent(v.getContext(), MainActivity.class);
+                  startActivityForResult(intent, 0);
+                  finish();
+              }
+               else{
+                  Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+              }
+
+
+
               }
            }
         );
