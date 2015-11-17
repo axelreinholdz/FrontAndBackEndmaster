@@ -14,6 +14,10 @@ public class Game {
         this.status = status;
     }
 
+    public Game() {
+
+    }
+
     public int getGameId() {
         return gameId;
     }

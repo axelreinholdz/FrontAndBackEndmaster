@@ -61,7 +61,7 @@
                             android:inputType="textPersonName"
                             android:hint="Username"
                             android:ems="10"
-                            android:id="@+id/editText2"
+                            android:id="@+id/editText_username"
                             android:layout_gravity="center"
                             android:textAlignment="center"
                             android:textColorHint="#ffffff"
