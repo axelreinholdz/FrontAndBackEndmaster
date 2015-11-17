@@ -49,6 +49,7 @@ public class QuestionManager {
                 result = "No network connection available";
             }
 
+            Log.d("STRING",result);
             //parse String to JSONObject
             JSONObject obj = new JSONObject(result);
             String QuestionText = obj.getString("QuestionText");
