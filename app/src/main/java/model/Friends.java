@@ -4,27 +4,27 @@ package model;
  * Created by Iris on 14/11/2015.
  */
 public class Friends {
-    private int userId;
-    private int friendId;
+    private String userEmail;
+    private String friendEmail;
 
-    public Friends(int userId, int friendId) {
-        this.userId = userId;
-        this.friendId = friendId;
+    public Friends(String userEmail, String friendEmail) {
+        this.userEmail = userEmail;
+        this.friendEmail = friendEmail;
     }
 
-    public int getUserId() {
-        return userId;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
-    public int getFriendId() {
-        return friendId;
+    public String getFriendEmail() {
+        return friendEmail;
     }
 
-    public void setFriendId(int friendId) {
-        this.friendId = friendId;
+    public void setFriendEmail(String friendEmail) {
+        this.friendEmail = friendEmail;
     }
 }

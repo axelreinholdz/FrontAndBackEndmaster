@@ -51,13 +51,15 @@ public class LoginActivity extends Activity {
         btn.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-              UserManager userManager = new UserManager();
+               UserManager userManager = new UserManager();
 
                String email = editTextEmail.getText().toString();
                String password = editTextPassword.getText().toString();
 
+
               if( userManager.login(email,password, LoginActivity.this) ){
                   Intent intent = new Intent(v.getContext(), MainActivity.class);
+                  intent.putExtra("email",email);
                   startActivityForResult(intent, 0);
                   finish();
               }

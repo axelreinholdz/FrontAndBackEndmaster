@@ -32,7 +32,7 @@ public class QuestionFragment extends Fragment{
         final EditText answerEditText = (EditText) rootVier.findViewById(R.id.editText_answer);
 
         QuestionManager qm = new QuestionManager();
-        final Question q = qm.getQuestionById(1, getActivity());
+        final Question q = qm.getQuestionByNumber(1, getActivity());
 
         questionTextView.setText(q.getQuestionText());
 

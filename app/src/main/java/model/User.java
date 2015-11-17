@@ -4,7 +4,7 @@ package model;
  * Created by Iris on 14/11/2015.
  */
 public class User {
-    private int userId;
+    private String userId;
     private String name;
     private String email;
     private String password;
@@ -13,7 +13,7 @@ public class User {
     public User() {
     }
 
-    public User(int userId, String name, String email, String password, String location) {
+    public User(String userId, String name, String email, String password, String location) {
         this.userId = userId;
         this.name = name;
         this.email = email;
@@ -21,11 +21,11 @@ public class User {
         this.location = location;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -60,4 +60,6 @@ public class User {
     public void setLocation(String location) {
         this.location = location;
     }
+
+
 }

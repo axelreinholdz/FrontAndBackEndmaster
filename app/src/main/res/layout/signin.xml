@@ -63,9 +63,10 @@
                             android:id="@+id/editText_email"
                             android:layout_gravity="center"
                             android:textAlignment="center"
-                            android:text="Email"
                             android:textColor="#ffffff"
-                            android:textSize="18dp" />
+                            android:textSize="18dp"
+                            android:hint="Email"
+                            android:textColorHint="#ffffff" />
                     </FrameLayout>
                 </LinearLayout>
 
@@ -90,8 +91,9 @@
                             android:singleLine="false"
                             android:password="true"
                             android:textColor="#ffffff"
-                            android:text="Password"
-                            android:textSize="18dp" />
+                            android:textSize="18dp"
+                            android:hint="Password"
+                            android:textColorHint="#ffffff" />
                     </FrameLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -107,23 +109,24 @@
                     android:layout_height="match_parent">
 
                     <ImageButton
-                        android:layout_width="184dp"
-                        android:layout_height="52dp"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
                         android:id="@+id/signin_button"
-                        android:layout_gravity="center_horizontal|top"
+                        android:layout_gravity="right|center_vertical"
                         android:src="@drawable/signin"
                         android:scaleType="centerInside"
-                        android:background="#83d0f5" />
+                        android:background="#83d0f5"
+                        android:layout_marginRight="25dp" />
 
                     <ImageButton
-                        android:layout_width="184dp"
-                        android:layout_height="52dp"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
                         android:id="@+id/signup_button"
-                        android:layout_gravity="center_horizontal|bottom"
+                        android:layout_gravity="left|center_vertical"
                         android:src="@drawable/signup"
                         android:scaleType="centerInside"
                         android:background="#83d0f5"
-                        android:layout_marginBottom="10dp" />
+                        android:layout_marginLeft="25dp" />
                 </FrameLayout>
             </LinearLayout>
         </LinearLayout>

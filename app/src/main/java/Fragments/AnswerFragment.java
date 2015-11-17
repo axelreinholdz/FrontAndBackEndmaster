@@ -30,7 +30,7 @@ public class AnswerFragment extends Fragment {
         final FragmentManager fm = getFragmentManager();
 
         QuestionManager qm = new QuestionManager();
-        final Question q = qm.getQuestionById(1, getActivity());
+        final Question q = qm.getQuestionByNumber(1, getActivity());
 
         textViewLocation.setText("Welcome to: "+q.getAnswerText());
 

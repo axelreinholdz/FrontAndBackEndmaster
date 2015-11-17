@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.melker.mapping.R;
 
@@ -44,7 +45,7 @@ public class LocationFragment extends Fragment{
         final TextView textViewTakePicture = (TextView) rootVier.findViewById(R.id.textView_takePicture);
 
         QuestionManager qm = new QuestionManager();
-        final Question q = qm.getQuestionById(1, getActivity());
+        final Question q = qm.getQuestionByNumber(1, getActivity());
 
         textViewTakePicture.setText("Take a picture when you're at "+q.getAnswerText());
 
@@ -64,25 +65,13 @@ public class LocationFragment extends Fragment{
                 if(checkLocation){
 
                     textViewTakePicture.setText("Right Location");
-                    //fm.beginTransaction().replace(R.id.content_frame, new QuestionFragment()).commit();
+                    fm.beginTransaction().replace(R.id.content_frame, new QuestionFragment()).commit();
                 }
                 else{
-
+                    Toast.makeText(getActivity(), "Wrong Location", Toast.LENGTH_SHORT).show();
                 }
 
 
-                /* function to get users coordinates
-                GPSTracker gps = new GPSTracker(getActivity());
-
-                if (gps.canGetLocation()) {
-                    double latitude = gps.getLatitude();
-                    double longitude = gps.getLongitude();
-
-                }
-                else {
-                    gps.showSettingsAlert();
-                }
-                */
 
 
             }
