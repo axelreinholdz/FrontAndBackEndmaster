@@ -19,19 +19,9 @@
             <ImageView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:id="@+id/imageView4"
-                android:src="@drawable/mbs"
+                android:id="@+id/imageView_picture"
                 android:scaleType="centerCrop" />
 
-            <ImageView
-                android:layout_width="23dp"
-                android:layout_height="23dp"
-                android:id="@+id/imageView5"
-                android:layout_gravity="left|top"
-                android:src="@drawable/cancel"
-                android:scaleType="centerCrop"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp" />
         </FrameLayout>
 
     </LinearLayout>
@@ -54,14 +44,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Have you made it yet?"
-                    android:id="@+id/textView"
-                    android:textSize="30dp"
-                    android:textColor="#ffffff"
-                    android:textAlignment="center"
+                <ImageButton
+                    android:layout_width="151dp"
+                    android:layout_height="42dp"
+                    android:id="@+id/imageButton_takePicture"
+                    android:src="@drawable/takepicturebutton"
+                    android:adjustViewBounds="false"
+                    android:cropToPadding="false"
+                    android:baselineAlignBottom="false"
+                    android:focusable="false"
+                    android:scaleType="centerCrop"
+                    android:background="#83d0f5"
                     android:layout_gravity="center" />
             </FrameLayout>
 
@@ -89,8 +82,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Marina Bay Sands was completed in 2003 and sits in front of marina bay"
-                    android:id="@+id/textView5"
+                    android:text="Take a picture when you are at the location!"
+                    android:id="@+id/textView_takePicture"
                     android:layout_gravity="center"
                     android:textSize="20dp"
                     android:textColor="#ffffff"
@@ -117,22 +110,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="229dp"
-                    android:layout_height="wrap_content"
-                    android:text="Sen us your location"
-                    android:id="@+id/textView2"
-                    android:layout_gravity="left|center_vertical"
-                    android:textSize="20dp"
-                    android:textColor="#ffffff"
-                    android:autoText="false"
-                    android:textIsSelectable="false"
-                    android:textAlignment="center" />
-
                 <ImageButton
                     android:layout_width="75dp"
                     android:layout_height="40dp"
-                    android:id="@+id/imageButton3"
+                    android:id="@+id/imageButton_sendLocation"
                     android:src="@drawable/next"
                     android:adjustViewBounds="false"
                     android:cropToPadding="false"
@@ -142,6 +123,18 @@
                     android:background="#83d0f5"
                     android:layout_gravity="center_vertical|right"
                     android:layout_marginRight="15dp" />
+
+                <TextView
+                    android:layout_width="229dp"
+                    android:layout_height="wrap_content"
+                    android:text="Send us your location"
+                    android:id="@+id/textView_instruction"
+                    android:layout_gravity="left|center_vertical"
+                    android:textSize="20dp"
+                    android:textColor="#ffffff"
+                    android:autoText="false"
+                    android:textIsSelectable="false"
+                    android:textAlignment="center" />
             </FrameLayout>
         </LinearLayout>
     </LinearLayout>

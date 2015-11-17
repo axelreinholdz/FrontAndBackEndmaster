@@ -51,14 +51,15 @@ public class QuestionManager {
 
             Log.d("STRING",result);
             //parse String to JSONObject
+
             JSONObject obj = new JSONObject(result);
             String QuestionText = obj.getString("QuestionText");
             String AnswerText = obj.getString("AnswerText");
             String Hint1 = obj.getString("Hint1");
             String Hint2 = obj.getString("Hint2");
             String Hint3 = obj.getString("Hint3");
-            //String questionPic = "https://s3-ap-southeast-1.amazonaws.com/symplcms/symplCMSTest/" + obj.getJSONObject("QuestionPic").getJSONObject("file").getString("name");
-            newQuestion = new Question(QuestionNo, QuestionText, AnswerText, Hint1, Hint2, Hint3, null);
+            String questionPic = "https://s3-ap-southeast-1.amazonaws.com/symplcms/symplCMSTest/" + obj.getJSONObject("QuestionPic").getJSONObject("file").getString("name");
+            newQuestion = new Question(QuestionNo, QuestionText, AnswerText, Hint1, Hint2, Hint3, questionPic);
 
         } catch (Exception e) {
            Log.d("InputStream", e.getLocalizedMessage());

@@ -24,11 +24,6 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootVier = inflater.inflate(R.layout.profile_page, container, false);
 
-        camBtn = (Button) rootVier.findViewById(R.id.cptBtn);
-        imgView =(ImageView) rootVier.findViewById(R.id.image_view);
-
-
-
         return rootVier;
     }
 }

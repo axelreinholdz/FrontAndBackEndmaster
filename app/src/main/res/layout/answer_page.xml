@@ -19,19 +19,10 @@
             <ImageView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:id="@+id/imageView4"
+                android:id="@+id/imageView_questionPicture"
                 android:src="@drawable/mbs"
                 android:scaleType="centerCrop" />
 
-            <ImageButton
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:id="@+id/exitbtn"
-                android:layout_gravity="left|top"
-                android:src="@drawable/cancel"
-                android:scaleType="centerCrop"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp" />
         </FrameLayout>
 
     </LinearLayout>
@@ -57,7 +48,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="Welcome to Marina Bay Sands"
-                    android:id="@+id/textView"
+                    android:id="@+id/textView_location"
                     android:textSize="25dp"
                     android:textColor="#ffffff"
                     android:textAlignment="center"
@@ -89,7 +80,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Marina Bay Sands was completed in 2003 and sits in front of marina bay"
-                    android:id="@+id/textView6"
+                    android:id="@+id/textView_funFact"
                     android:layout_gravity="center"
                     android:textSize="20dp"
                     android:textColor="#ffffff"
@@ -120,7 +111,7 @@
                     android:layout_width="229dp"
                     android:layout_height="wrap_content"
                     android:text="Go to MBS to get your next location"
-                    android:id="@+id/textView2"
+                    android:id="@+id/textView_instruction"
                     android:layout_gravity="left|center_vertical"
                     android:textSize="20dp"
                     android:textColor="#ffffff"
