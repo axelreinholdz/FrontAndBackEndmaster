@@ -71,6 +71,7 @@ public class GPSManager {
         double long1 = user1.getLast_location_long();
         double lat2 = user2.getLast_location_lat();
         double long2 = user2.getLast_location_long();
+
         // convert latitude and longitude decimal degrees to meters
         lat1 = convertDecimalDegreeToMeter(lat1);
         long1 = convertDecimalDegreeToMeter(long1);

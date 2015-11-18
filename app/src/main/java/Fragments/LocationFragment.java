@@ -8,6 +8,7 @@ import android.media.Image;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +22,12 @@ import com.example.melker.mapping.R;
 
 import controller.GPSManager;
 import controller.GPSTracker;
+import controller.GameRegistrationManager;
 import controller.QuestionManager;
+import controller.UserManager;
+import model.GameRegistration;
 import model.Question;
+import model.User;
 
 /**
  * Created by axelreinholdz on 2015-11-17.
@@ -42,10 +47,12 @@ public class LocationFragment extends Fragment{
         photoCapturedImageView = (ImageView) rootVier.findViewById(R.id.imageView_picture);
 
         ImageButton takePictureButton = (ImageButton) rootVier.findViewById(R.id.imageButton_takePicture);
-        ImageButton sendLocationButton = (ImageButton) rootVier.findViewById(R.id.imageButton_sendLocation);
+        final ImageButton sendLocationButton = (ImageButton) rootVier.findViewById(R.id.imageButton_sendLocation);
         final TextView textViewTakePicture = (TextView) rootVier.findViewById(R.id.textView_takePicture);
 
         final String email = getActivity().getIntent().getStringExtra("email");
+        UserManager userManager = new UserManager();
+        final User u = userManager.getUserByEmail(email,getActivity());
 
         QuestionManager qm = new QuestionManager();
         final Question q = qm.getQuestionByNumber(1, getActivity());
@@ -67,6 +74,12 @@ public class LocationFragment extends Fragment{
                 checkLocation = gpsManager.isAtRightLocation(getActivity(),latitude,longitude,email);
 
                 if(checkLocation){
+                    /*
+                    GameRegistrationManager gameRegistrationManager = new GameRegistrationManager();
+                    GameRegistration gr = gameRegistrationManager.updateEndDateTime("1362"); // change 1362 to gameregistration id
+                    gameRegistrationManager.updateDuration(gr);
+                    */
+
                     fm.beginTransaction().replace(R.id.content_frame, new FinishedFragment()).commit();
                 }
                 else{
@@ -98,6 +111,9 @@ public class LocationFragment extends Fragment{
             Bundle extras = data.getExtras();
             Bitmap photoCapturedBitMap = (Bitmap) extras.get("data");
             photoCapturedImageView.setImageBitmap(photoCapturedBitMap);
+            ImageButton sendButton = (ImageButton) getActivity().findViewById(R.id.imageButton_sendLocation);
+
+            sendButton.setVisibility(getView().VISIBLE);
         }
     }
 

@@ -18,6 +18,12 @@ import com.example.melker.mapping.Users;
 import java.util.ArrayList;
 import java.util.List;
 
+import controller.GameRegistrationManager;
+import controller.UserManager;
+import model.Game;
+import model.GameRegistration;
+import model.User;
+
 /**
  * Created by Melker on 2015-11-02.
  */
@@ -31,9 +37,21 @@ public class ToplistFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootVier = inflater.inflate(R.layout.toplistfragment, container, false);
 
-        String[] vals = {"Melker", "Axel", "Viet", "Iris","Testsson"};
-        ListView lv = (ListView)rootVier.findViewById(R.id.listView);
-        StringArrayAdapter ad = new StringArrayAdapter(vals, getActivity() );
+        UserManager userManager = new UserManager();
+        ArrayList<User> topList = userManager.getAllUsersSortedByShortestGameDuration(getActivity());
+
+        String [] topListArray = new String [topList.size()];
+
+        int i = 0;
+
+        for(User u: topList){
+            topListArray [i] = u.getName();
+            i++;
+        }
+
+        ListView lv = (ListView) rootVier.findViewById(R.id.listView_topList);
+
+        StringArrayAdapter ad = new StringArrayAdapter(topListArray, getActivity());
         lv.setAdapter(ad);
 
         return rootVier;

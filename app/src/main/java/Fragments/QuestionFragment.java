@@ -25,7 +25,7 @@ import model.Question;
 public class QuestionFragment extends Fragment{
 
      public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootVier = inflater.inflate(R.layout.question_page
+        final View rootVier = inflater.inflate(R.layout.question_page
                 , container, false);
 
 
@@ -40,7 +40,6 @@ public class QuestionFragment extends Fragment{
          questionTextView.setText(q.getQuestionText());
 
 
-
         ImageButton submitBtn = (ImageButton) rootVier.findViewById(R.id.submitBtn);
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +50,7 @@ public class QuestionFragment extends Fragment{
                 Log.d("Anwser",answer);
 
                 if(answer.equalsIgnoreCase(q.getAnswerText())){
+
                     fm.beginTransaction().replace(R.id.content_frame, new AnswerFragment()).commit();
                 }
                 else{

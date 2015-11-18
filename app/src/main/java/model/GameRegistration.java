@@ -2,11 +2,13 @@ package model;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by Iris on 14/11/2015.
  */
-public class GameRegistration {
+public class GameRegistration implements Comparable<GameRegistration>{
     private String objectId;
     private String userId;
     private int gameId;
@@ -42,13 +44,20 @@ public class GameRegistration {
 
     public long calculateDuration () {
         if (endTime!=null && endDate!=null){
-            endTime.setYear(endDate.getYear());
-            endTime.setMonth(endDate.getMonth());
-            endTime.setDate(endDate.getDate());
-            startTime.setYear(startDate.getYear());
-            startTime.setMonth(startDate.getMonth());
-            startTime.setDate(startDate.getDate());
-            return endTime.getTime()-startTime.getTime();
+            try{
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+                DateFormat fullFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String startDateStr = dateFormat.format(startDate);
+                String startTimeStr = timeFormat.format(startTime);
+                String endDateStr = dateFormat.format(endDate);
+                String endTimeStr = timeFormat.format(endTime);
+                java.util.Date parsedStartDate = fullFormat.parse(startDateStr+" "+startTimeStr);
+                java.util.Date parsedEndDate = fullFormat.parse(endDateStr+" "+endTimeStr);
+                return parsedEndDate.getTime()-parsedStartDate.getTime();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return 0;
     }
@@ -123,6 +132,12 @@ public class GameRegistration {
 
     public void setObjectId(String objectId) {
         this.objectId = objectId;
+    }
+
+    @Override
+    public int compareTo(GameRegistration compareGameRegistration) {
+        // ascending duration (shorter durations first)
+        return (int) (this.duration-compareGameRegistration.getDuration());
     }
     
 }

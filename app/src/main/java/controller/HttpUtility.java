@@ -4,10 +4,13 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,6 +18,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -111,16 +115,12 @@ public class HttpUtility {
                 InputStream inputStream = response.getEntity().getContent();
                 result=convertInputStreamToString(inputStream);
                 System.out.println("HTTP CALL IS INITIATING");
-                System.out.println(result);
-                System.out.println("FINISH HTTP CALL");
             } catch (Exception e) {
                 e.printStackTrace();
             }
             return result;
         }
     }
-
-
 
     private class httpPutTask extends AsyncTask<String, Void, String> {
 
@@ -138,6 +138,7 @@ public class HttpUtility {
                 httpPut.setHeader("Accept", "application/json");
                 httpPut.setHeader("Content-type", "application/json");
                 HttpResponse response =  new DefaultHttpClient().execute(httpPut);
+//                System.out.println(response.getStatusLine().getStatusCode());
 
                 InputStream inputStream = response.getEntity().getContent();
                 result=convertInputStreamToString(inputStream);
@@ -151,6 +152,35 @@ public class HttpUtility {
         }
     }
 
+    private class httpDeleteTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... args){
+            String requestUrl = args[0];
+            String jsonInput = args[1];
+            Log.d("jsonInput",jsonInput);
+
+            String result = "";
+
+            try {
+                HttpDelete httpDelete = new HttpDelete(requestUrl);
+//                httpDelete.setEntity(new StringEntity(jsonInput));
+                httpDelete.setHeader("Accept", "application/json");
+                httpDelete.setHeader("Content-type", "application/json");
+                HttpResponse response =  new DefaultHttpClient().execute(httpDelete);
+//                System.out.println(response.getStatusLine().getStatusCode());
+
+                InputStream inputStream = response.getEntity().getContent();
+                result=convertInputStreamToString(inputStream);
+                System.out.println("HTTP DELETE IS INITIATING");
+                System.out.println(result);
+                System.out.println("FINISH HTTP DELETE");
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+            return result;
+        }
+    }
 
     private String convertInputStreamToString(InputStream inputStream)
             throws IOException {
@@ -163,5 +193,34 @@ public class HttpUtility {
         inputStream.close();
         return result;
     }
+
+    public JSONArray convertJSONObjectToJSONArray(JSONObject jsonObject){
+        JSONArray result = new JSONArray();
+        try{
+
+            Iterator<?> keys = jsonObject.keys();
+
+            while( keys.hasNext() ) {
+                JSONObject smallObj = new JSONObject();
+                String key = (String)keys.next();
+                smallObj.put(key, jsonObject.get(key));
+                result.put(smallObj);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        System.out.println(result.toString());
+        return result;
+    }
+
+    /**
+     * Closes the connection if opened
+     */
+    public static void disconnect() {
+        if (httpConn != null) {
+            httpConn.disconnect();
+        }
+    }
+
 
 }

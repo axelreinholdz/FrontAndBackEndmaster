@@ -2,12 +2,14 @@ package Fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.app.Fragment;
@@ -27,7 +29,7 @@ public class FriendsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootVier = inflater.inflate(R.layout.friendsfragment, container, false);
-
+        final FragmentManager fm = getFragmentManager();
 
         String email = getActivity().getIntent().getStringExtra("email");
 
@@ -47,6 +49,14 @@ public class FriendsFragment extends Fragment {
 
         StringArrayAdapter ad = new StringArrayAdapter(friendsArray, getActivity());
         lv.setAdapter(ad);
+
+        ImageButton addBtn = (ImageButton) rootVier.findViewById(R.id.imageButton_add);
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fm.beginTransaction().replace(R.id.content_frame, new SearchFriendsFragment()).commit();
+            }
+        });
 
         return rootVier;
     }
