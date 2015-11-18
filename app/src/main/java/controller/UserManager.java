@@ -18,7 +18,10 @@ import model.User;
  * Created by Iris on 14/11/2015.
  */
 public class UserManager {
+
+
     private User user;
+
 
     public boolean login(String email, String password, Context context){
         boolean isLogin = false;
@@ -28,6 +31,65 @@ public class UserManager {
         }
         return isLogin;
     }
+
+
+    public User addUser(String email, String name, String password, String location) {
+        User result = new User();
+        try{
+            JSONObject bigObj = new JSONObject();
+            JSONArray propertyArray = new JSONArray();
+            JSONObject smallObj = new JSONObject();
+            smallObj.put("userId", name);
+
+            propertyArray.put(smallObj);
+            smallObj = new JSONObject();
+
+            smallObj.put("name", name);
+            propertyArray.put(smallObj);
+            smallObj = new JSONObject();
+
+            smallObj.put("email", email);
+            propertyArray.put(smallObj);
+            smallObj = new JSONObject();
+
+            smallObj.put("password", password);
+            propertyArray.put(smallObj);
+            smallObj = new JSONObject();
+
+            smallObj.put("location", location);
+            propertyArray.put(smallObj);
+            smallObj = new JSONObject();
+
+            smallObj.put("last-location-lat", "");
+            propertyArray.put(smallObj);
+            smallObj = new JSONObject();
+
+            smallObj.put("last-location-long", "");
+            propertyArray.put(smallObj);
+            smallObj = new JSONObject();
+
+
+            bigObj.put("country","Singapore");
+            bigObj.put("region","Singapore");
+            bigObj.put("city","Singapore");
+            bigObj.put("name",name);
+            bigObj.put("objectTypeId","112");
+            bigObj.put("userId","1");
+            bigObj.put("appId","32");
+            bigObj.put("properties", propertyArray);
+            String json = bigObj.toString();
+            HttpUtility httpUtility = new HttpUtility();
+            String resultString = httpUtility.createObject(json);
+
+            JSONObject resultJson = new JSONObject(resultString);
+            result = convertJSONObjectToUser(resultJson);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
 
     public User getUserByEmail(String theEmail, Context context){
 

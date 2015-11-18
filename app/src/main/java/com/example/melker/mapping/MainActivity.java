@@ -1,6 +1,7 @@
 package com.example.melker.mapping;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -99,7 +100,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_map) {
             fm.beginTransaction().replace(R.id.content_frame, new MapFragment()).commit();
         }
-
+        else if (id == R.id.nav_logOut) {
+            startActivity(new Intent(this, LoginActivity.class));
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

@@ -75,31 +75,37 @@ public class HttpUtility {
     }
 
     public String getObjectByProperty(String objectTypeId, String jsonInput) throws ExecutionException, InterruptedException {
-        return new httpPostTask().execute(objectTypeId, jsonInput).get();
+        String requestUrl = "http://161.202.13.188:9000/api/object/get/app/32/objecttype/"+objectTypeId+"/properties";
+        return new httpPostTask().execute(requestUrl, jsonInput).get();
+    }
+
+    public String createObject(String jsonInput) throws ExecutionException, InterruptedException {
+        String requestUrl = "http://161.202.13.188:9000/api/object/create";
+        return new httpPostTask().execute(requestUrl, jsonInput).get();
     }
 
     private class httpPostTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... args){
-            String objectTypeId = args[0];
+            String requestUrl = args[0];
             String jsonInput = args[1];
-            Log.d("jsonInput", jsonInput);
-            String requestURL = "http://161.202.13.188:9000/api/object/get/app/32/objecttype/"+objectTypeId+"/properties";
+            Log.d("jsonInput",jsonInput);
+
             String result = "";
 
             try {
-                HttpPost httpPost = new HttpPost(requestURL);
+                HttpPost httpPost = new HttpPost(requestUrl);
                 httpPost.setEntity(new StringEntity(jsonInput));
                 httpPost.setHeader("Accept", "application/json");
                 httpPost.setHeader("Content-type", "application/json");
                 HttpResponse response =  new DefaultHttpClient().execute(httpPost);
-//                System.out.println(response.getStatusLine().getStatusCode());
 
                 InputStream inputStream = response.getEntity().getContent();
                 result=convertInputStreamToString(inputStream);
                 System.out.println("HTTP CALL IS INITIATING");
-
+                System.out.println(result);
+                System.out.println("FINISH HTTP CALL");
             } catch (Exception e) {
                 e.printStackTrace();
             }

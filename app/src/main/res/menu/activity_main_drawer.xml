@@ -2,6 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
+
         <item android:id="@+id/nav_home" android:icon="@android:drawable/ic_menu_camera"
             android:title="Home" />
         <item android:id="@+id/nav_friends" android:icon="@android:drawable/ic_menu_gallery"
@@ -12,7 +13,16 @@
             android:title="Toplist" />
         <item android:id="@+id/nav_map" android:icon="@android:drawable/ic_menu_manage"
             android:title="Map" />
+
     </group>
+
+    <item android:title="Chilla lide!">
+        <menu>
+            <item android:id="@+id/nav_logOut" android:icon="@android:drawable/ic_menu_share"
+                android:title="Logout" />
+
+        </menu>
+    </item>
 
 
 </menu>
