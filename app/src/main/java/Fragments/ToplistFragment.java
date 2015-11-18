@@ -37,15 +37,16 @@ public class ToplistFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootVier = inflater.inflate(R.layout.toplistfragment, container, false);
 
-        UserManager userManager = new UserManager();
-        ArrayList<User> topList = userManager.getAllUsersSortedByShortestGameDuration(getActivity());
+        GameRegistrationManager gameRegistrationManager = new GameRegistrationManager();
 
-        String [] topListArray = new String [topList.size()];
+        ArrayList<GameRegistration> topListTest = gameRegistrationManager.getAllGameRegistrationSortedByShortestDuration(getActivity());
+
+        String [] topListArray = new String [topListTest.size()];
 
         int i = 0;
 
-        for(User u: topList){
-            topListArray [i] = u.getName();
+        for(GameRegistration gr: topListTest){
+            topListArray [i] = gr.getUserId();
             i++;
         }
 

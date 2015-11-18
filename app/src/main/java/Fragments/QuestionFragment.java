@@ -34,6 +34,7 @@ public class QuestionFragment extends Fragment{
         TextView questionTextView = (TextView) rootVier.findViewById(R.id.textView_question);
         final EditText answerEditText = (EditText) rootVier.findViewById(R.id.editText_answer);
 
+
          QuestionManager qm = new QuestionManager();
          final Question q = qm.getQuestionByNumber(1, getActivity());
 

@@ -11,12 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
 
 import Fragments.FriendsFragment;
 import Fragments.MainFragment;
-import Fragments.MapFragment;
 import Fragments.ProfileFragment;
 import Fragments.ToplistFragment;
 
@@ -97,11 +94,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_toplists) {
             fm.beginTransaction().replace(R.id.content_frame, new ToplistFragment()).commit();
 
-        } else if (id == R.id.nav_map) {
-            fm.beginTransaction().replace(R.id.content_frame, new MapFragment()).commit();
-        }
-        else if (id == R.id.nav_logOut) {
+        } else if (id == R.id.nav_logOut) {
             startActivity(new Intent(this, LoginActivity.class));
+            finish();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

@@ -3,6 +3,9 @@ package Fragments;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +17,10 @@ import android.widget.TextView;
 
 import com.example.melker.mapping.MainActivity;
 import com.example.melker.mapping.R;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import controller.QuestionManager;
 import model.Question;
@@ -35,7 +42,6 @@ public class AnswerFragment extends Fragment {
 
         QuestionManager qm = new QuestionManager();
         final Question q = qm.getQuestionByNumber(1, getActivity());
-
 
         textViewFunFact.setText("Fun fact: "+q.getHint1());
 
