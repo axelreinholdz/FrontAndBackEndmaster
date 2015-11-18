@@ -23,15 +23,6 @@
                 android:src="@drawable/mbs"
                 android:scaleType="centerCrop" />
 
-            <ImageView
-                android:layout_width="23dp"
-                android:layout_height="23dp"
-                android:id="@+id/imageView5"
-                android:layout_gravity="left|top"
-                android:src="@drawable/cancel"
-                android:scaleType="centerCrop"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp" />
         </FrameLayout>
 
     </LinearLayout>
@@ -135,7 +126,7 @@
                 <ImageButton
                     android:layout_width="120dp"
                     android:layout_height="40dp"
-                    android:id="@+id/imageButton6"
+                    android:id="@+id/imageButton_toplist"
                     android:layout_gravity="left|center_vertical"
                     android:src="@drawable/toplistbutton"
                     android:scaleType="centerCrop"
@@ -146,7 +137,7 @@
                 <ImageButton
                     android:layout_width="120dp"
                     android:layout_height="40dp"
-                    android:id="@+id/imageButton7"
+                    android:id="@+id/imageButton_restart"
                     android:layout_gravity="right|center_vertical"
                     android:background="#83d0f5"
                     android:src="@drawable/restartbutton"

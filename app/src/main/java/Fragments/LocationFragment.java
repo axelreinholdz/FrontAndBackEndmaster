@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.melker.mapping.MainActivity;
 import com.example.melker.mapping.R;
 
 import controller.GPSManager;
@@ -56,6 +57,7 @@ public class LocationFragment extends Fragment{
             public void onClick(View v) {
                 //checkLocation
 
+
                 GPSManager gpsManager = new GPSManager();
                 double longitude = q.getLocationLongitude();
                 double latitude = q.getLocationLatitude();
@@ -65,7 +67,7 @@ public class LocationFragment extends Fragment{
                 checkLocation = gpsManager.isAtRightLocation(getActivity(),latitude,longitude,email);
 
                 if(checkLocation){
-                    fm.beginTransaction().replace(R.id.content_frame, new QuestionFragment()).commit();
+                    fm.beginTransaction().replace(R.id.content_frame, new FinishedFragment()).commit();
                 }
                 else{
                     Toast.makeText(getActivity(), "Wrong Location", Toast.LENGTH_SHORT).show();

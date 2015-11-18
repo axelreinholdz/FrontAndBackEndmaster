@@ -2,7 +2,9 @@ package Fragments;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.melker.mapping.MainActivity;
 import com.example.melker.mapping.R;
 
 import controller.QuestionManager;
@@ -29,8 +32,10 @@ public class AnswerFragment extends Fragment {
 
         final FragmentManager fm = getFragmentManager();
 
+
         QuestionManager qm = new QuestionManager();
         final Question q = qm.getQuestionByNumber(1, getActivity());
+
 
         textViewFunFact.setText("Fun fact: "+q.getHint1());
 
@@ -42,7 +47,6 @@ public class AnswerFragment extends Fragment {
         nextbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 fm.beginTransaction().replace(R.id.content_frame, new LocationFragment()).commit();
 
             }
