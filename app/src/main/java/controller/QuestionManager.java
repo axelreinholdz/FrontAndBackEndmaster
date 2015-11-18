@@ -23,10 +23,12 @@ import java.net.URL;
  * Created by Iris on 14/11/2015.
  */
 public class QuestionManager {
+
     public QuestionManager() {
     }
 
     public Question getQuestionByNumber (int QuestionNo, Context context) {
+
         Question theQuestion = new Question();
         JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject = new JSONObject();
@@ -60,6 +62,7 @@ public class QuestionManager {
 
     private Question convertJSONObjectToQuestion(JSONObject obj) throws JSONException {
         // change JSONObject to Java Class
+        String objectId = obj.getString("id");
         int QuestionNo = obj.getInt("QuestionNo");
         String QuestionText = obj.getString("QuestionText");
         String AnswerText = obj.getString("AnswerText");
@@ -67,19 +70,23 @@ public class QuestionManager {
         double LocationLatitude = obj.getDouble("LocationLatitude");
         double LocationLongitude = obj.getDouble("LocationLongitude");
         String questionPic = "https://s3-ap-southeast-1.amazonaws.com/symplcms/symplCMSTest/" + obj.getJSONObject("QuestionPic").getJSONObject("file").getString("name");
-        return new Question(QuestionNo, QuestionText, AnswerText, Hint1, LocationLatitude, LocationLongitude, questionPic);
+        return new Question(objectId,QuestionNo, QuestionText, AnswerText, Hint1, LocationLatitude, LocationLongitude, questionPic);
     }
+
 
     public Question getQuestionById(int QuestionNo, Context context) {
         //id from SYMPLCMS, set STRING to avoid CONVERTING INT TO STRING
+        String[] questionArray = {"1248","1250","1316"};
         String url = "";
-        if (QuestionNo == 1) {
-            url = "http://161.202.13.188:9000/api/object/get/1324";
-        } else if (QuestionNo == 2) {
-            url = "http://161.202.13.188:9000/api/object/get/1250";
-        } else if (QuestionNo == 3) {
-            url = "http://161.202.13.188:9000/api/object/get/1316";
-        }
+
+//        if (QuestionNo == 1) {
+//            url = "http://161.202.13.188:9000/api/object/get/1248";
+//        } else if (QuestionNo == 2) {
+//            url = "http://161.202.13.188:9000/api/object/get/1250";
+//        } else if (QuestionNo == 3) {
+//            url = "http://161.202.13.188:9000/api/object/get/1316";
+//        }
+        url = "http://161.202.13.188:9000/api/object/get/"+questionArray[QuestionNo - 1];
 
         Question newQuestion = new Question();
         String result = "";
@@ -103,17 +110,23 @@ public class QuestionManager {
             JSONObject obj = new JSONObject(result);
 
             // change JSONObject to Java Class
+            String objectId = obj.getString("id");
             String QuestionText = obj.getString("QuestionText");
             String AnswerText = obj.getString("AnswerText");
             String Hint1 = obj.getString("Hint1");
             double LocationLatitude = obj.getDouble("LocationLatitude");
             double LocationLongitude = obj.getDouble("LocationLongitude");
             String questionPic = "https://s3-ap-southeast-1.amazonaws.com/symplcms/symplCMSTest/" + obj.getJSONObject("QuestionPic").getJSONObject("file").getString("name");
-            newQuestion = new Question(QuestionNo, QuestionText, AnswerText, Hint1, LocationLatitude, LocationLongitude, questionPic);
+            newQuestion = new Question(objectId, QuestionNo, QuestionText, AnswerText, Hint1, LocationLatitude, LocationLongitude, questionPic);
         } catch (Exception e) {
             Log.d("InputStream", e.getLocalizedMessage());
         }
 
         return newQuestion;
     }
+
+
+
+
+
 }

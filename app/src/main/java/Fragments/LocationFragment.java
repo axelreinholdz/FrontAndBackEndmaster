@@ -44,6 +44,8 @@ public class LocationFragment extends Fragment{
         ImageButton sendLocationButton = (ImageButton) rootVier.findViewById(R.id.imageButton_sendLocation);
         final TextView textViewTakePicture = (TextView) rootVier.findViewById(R.id.textView_takePicture);
 
+        final String email = getActivity().getIntent().getStringExtra("email");
+
         QuestionManager qm = new QuestionManager();
         final Question q = qm.getQuestionByNumber(1, getActivity());
 
@@ -60,18 +62,14 @@ public class LocationFragment extends Fragment{
 
                 boolean checkLocation ;
 
-                checkLocation = gpsManager.isAtRightLocation(getActivity(),latitude,longitude);
+                checkLocation = gpsManager.isAtRightLocation(getActivity(),latitude,longitude,email);
 
                 if(checkLocation){
-
-                    textViewTakePicture.setText("Right Location");
                     fm.beginTransaction().replace(R.id.content_frame, new QuestionFragment()).commit();
                 }
                 else{
                     Toast.makeText(getActivity(), "Wrong Location", Toast.LENGTH_SHORT).show();
                 }
-
-
 
 
             }

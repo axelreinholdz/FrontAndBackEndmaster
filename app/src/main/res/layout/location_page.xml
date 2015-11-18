@@ -114,7 +114,7 @@
                     android:layout_width="75dp"
                     android:layout_height="40dp"
                     android:id="@+id/imageButton_sendLocation"
-                    android:src="@drawable/next"
+                    android:src="@drawable/send"
                     android:adjustViewBounds="false"
                     android:cropToPadding="false"
                     android:baselineAlignBottom="false"

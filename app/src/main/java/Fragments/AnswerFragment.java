@@ -32,6 +32,8 @@ public class AnswerFragment extends Fragment {
         QuestionManager qm = new QuestionManager();
         final Question q = qm.getQuestionByNumber(1, getActivity());
 
+        textViewFunFact.setText("Fun fact: "+q.getHint1());
+
         textViewLocation.setText("Welcome to: "+q.getAnswerText());
 
         textViewInstruction.setText("Go to "+q.getAnswerText()+" to get your next location");

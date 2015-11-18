@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_friends) {
             fm.beginTransaction().replace(R.id.content_frame, new FriendsFragment()).commit();
 
-        } else if (id == R.id.nav_settings) {
+        } else if (id == R.id.nav_profile) {
             fm.beginTransaction().replace(R.id.content_frame, new ProfileFragment()).commit();
 
         } else if (id == R.id.nav_toplists) {

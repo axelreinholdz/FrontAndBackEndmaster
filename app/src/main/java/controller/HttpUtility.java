@@ -5,6 +5,7 @@ import android.util.Log;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
@@ -20,6 +21,7 @@ import java.util.concurrent.ExecutionException;
  * Created by axelreinholdz on 2015-11-16.
  */
 public class HttpUtility {
+
     private static HttpURLConnection httpConn;
 
     public String download(String url) throws ExecutionException, InterruptedException {
@@ -84,6 +86,11 @@ public class HttpUtility {
         return new httpPostTask().execute(requestUrl, jsonInput).get();
     }
 
+    public String updateObjectByProperties(String objectId, String jsonInput) throws ExecutionException, InterruptedException{
+        String requestUrl = "http://161.202.13.188:9000/api/object/"+objectId+"/update/properties";
+        return new httpPutTask().execute(requestUrl, jsonInput).get();
+    }
+
     private class httpPostTask extends AsyncTask<String, Void, String> {
 
         @Override
@@ -112,6 +119,38 @@ public class HttpUtility {
             return result;
         }
     }
+
+
+
+    private class httpPutTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... args){
+            String requestUrl = args[0];
+            String jsonInput = args[1];
+            Log.d("jsonInput",jsonInput);
+
+            String result = "";
+
+            try {
+                HttpPut httpPut = new HttpPut(requestUrl);
+                httpPut.setEntity(new StringEntity(jsonInput));
+                httpPut.setHeader("Accept", "application/json");
+                httpPut.setHeader("Content-type", "application/json");
+                HttpResponse response =  new DefaultHttpClient().execute(httpPut);
+
+                InputStream inputStream = response.getEntity().getContent();
+                result=convertInputStreamToString(inputStream);
+                System.out.println("HTTP PUT IS INITIATING");
+                System.out.println(result);
+                System.out.println("FINISH HTTP PUT");
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+            return result;
+        }
+    }
+
 
     private String convertInputStreamToString(InputStream inputStream)
             throws IOException {

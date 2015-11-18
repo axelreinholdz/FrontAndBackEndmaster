@@ -26,16 +26,17 @@ public class GameManager {
 
         try {
             HttpUtility httpUtility = new HttpUtility();
-            result = httpUtility.download(url);
+//            result = httpUtility.HttpGETObjectString(url);
 
             //parse String to JSONObject
             JSONObject obj = new JSONObject(result);
 
+            String objectId = obj.getString("id");
             int GameId = obj.getInt("gameId");
             String Name = obj.getString("name");
             String Status = obj.getString("status");
 
-            newGame = new Game(GameId, Name, Status);
+            newGame = new Game(objectId, GameId, Name, Status);
 
         } catch (Exception e) {
             Log.d("InputStream", e.getLocalizedMessage());

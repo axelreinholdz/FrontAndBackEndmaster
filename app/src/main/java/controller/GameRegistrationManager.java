@@ -49,7 +49,7 @@ public class GameRegistrationManager {
             if(networkInfo != null && networkInfo.isConnected()){
                 result=httpUtility.getObjectByProperty("111",jsonArray.toString());
             }
-            Log.d("httpOutput", result);
+            Log.d("httpOutput",result);
             JSONArray gameRegistrationArray = new JSONArray(result);
             JSONObject obj = gameRegistrationArray.getJSONObject(0);
 
@@ -64,6 +64,7 @@ public class GameRegistrationManager {
     }
 
     private GameRegistration convertJSONObjectToGameRegistration(JSONObject obj) throws JSONException, ParseException {
+        String objectId = obj.getString("id");
         String userId = obj.getString("userId");
         int gameId = obj.getInt("gameId");
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -83,6 +84,14 @@ public class GameRegistrationManager {
             endTime = Time.valueOf(timeString);
         }
         int currentQuestionNo = obj.getInt("currentQuestionNo");
-        return new GameRegistration(userId,gameId,startDate,startTime,endDate,endTime,currentQuestionNo);
+        long duration = obj.getLong("duration");
+        return new GameRegistration(objectId,userId,gameId,startDate,startTime,endDate,endTime,currentQuestionNo,duration);
+    }
+
+    public String printDuration (long duration){
+        long durationInHours = duration / (60 * 60 * 1000);
+        long durationInMinutes = (duration - durationInHours * (60 * 60 * 1000)) / (60 * 1000);
+        long durationInSeconds = (duration - durationInHours * (60 * 60 * 1000) - durationInMinutes * (60 * 1000)) / 1000;
+        return String.valueOf(durationInHours)+"h "+String.valueOf(durationInMinutes)+"m "+String.valueOf(durationInSeconds)+"s";
     }
 }

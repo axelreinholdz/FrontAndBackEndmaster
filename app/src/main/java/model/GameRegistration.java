@@ -7,6 +7,7 @@ import java.sql.Time;
  * Created by Iris on 14/11/2015.
  */
 public class GameRegistration {
+    private String objectId;
     private String userId;
     private int gameId;
     private Date startDate;
@@ -14,6 +15,7 @@ public class GameRegistration {
     private Date endDate;
     private Time endTime;
     private int currentQuestionNo;
+    private long duration;
 
     public GameRegistration() {
     }
@@ -26,7 +28,8 @@ public class GameRegistration {
         this.currentQuestionNo = 1;
     }
 
-    public GameRegistration(String userId, int gameId, Date startDate, Time startTime, Date endDate, Time endTime, int currentQuestionNo) {
+    public GameRegistration(String objectId, String userId, int gameId, Date startDate, Time startTime, Date endDate, Time endTime, int currentQuestionNo, long duration) {
+        this.objectId = objectId;
         this.userId = userId;
         this.gameId = gameId;
         this.startDate = startDate;
@@ -34,6 +37,20 @@ public class GameRegistration {
         this.endDate = endDate;
         this.endTime = endTime;
         this.currentQuestionNo = currentQuestionNo;
+        this.duration = duration;
+    }
+
+    public long calculateDuration () {
+        if (endTime!=null && endDate!=null){
+            endTime.setYear(endDate.getYear());
+            endTime.setMonth(endDate.getMonth());
+            endTime.setDate(endDate.getDate());
+            startTime.setYear(startDate.getYear());
+            startTime.setMonth(startDate.getMonth());
+            startTime.setDate(startDate.getDate());
+            return endTime.getTime()-startTime.getTime();
+        }
+        return 0;
     }
 
     public String getUserId() {
@@ -90,6 +107,22 @@ public class GameRegistration {
 
     public void setCurrentQuestionNo(int currentQuestionNo) {
         this.currentQuestionNo = currentQuestionNo;
+    }
+
+    public long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
+    }
+
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
     }
     
 }

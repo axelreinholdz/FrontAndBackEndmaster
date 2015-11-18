@@ -60,11 +60,11 @@ public class UserManager {
             propertyArray.put(smallObj);
             smallObj = new JSONObject();
 
-            smallObj.put("last-location-lat", "");
+            smallObj.put("last-location-lat", "0");
             propertyArray.put(smallObj);
             smallObj = new JSONObject();
 
-            smallObj.put("last-location-long", "");
+            smallObj.put("last-location-long", "0");
             propertyArray.put(smallObj);
             smallObj = new JSONObject();
 
@@ -89,7 +89,6 @@ public class UserManager {
 
         return result;
     }
-
 
     public User getUserByEmail(String theEmail, Context context){
 
@@ -129,7 +128,7 @@ public class UserManager {
 
         String result = "";
         HttpUtility httpUtility = new HttpUtility();
-        try{
+        try {
 
             ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
@@ -160,6 +159,38 @@ public class UserManager {
 
         return allUsers;
     }
+
+
+    public boolean changePassword(String email, String oldPassword, String newPassword, Context context){
+        boolean result = false;
+        User user = getUserByEmail(email,context);
+        if (user!=null && oldPassword.equalsIgnoreCase(user.getPassword())){
+            String objectId = user.getObjectId();
+            JSONObject bigObj = new JSONObject();
+            JSONObject smallObj = new JSONObject();
+            JSONArray propertyArray = new JSONArray();
+            try{
+                smallObj.put("password", newPassword);
+                propertyArray.put(smallObj);
+
+                bigObj.put("appId","32");
+                bigObj.put("properties",propertyArray);
+                HttpUtility httpUtility = new HttpUtility();
+                String resultString = httpUtility.updateObjectByProperties(objectId, bigObj.toString());
+                System.out.println(resultString);
+                result = true;
+            } catch (Exception e){
+                e.printStackTrace();
+                result = false;
+            }
+
+
+        }
+
+        return result;
+    }
+
+
 
     public ArrayList<User> getFriendsByUserEmail (String theEmail, Context context) {
         ArrayList<User> friends = new ArrayList<User>();
@@ -209,17 +240,25 @@ public class UserManager {
 
     private User convertJSONObjectToUser (JSONObject obj) throws JSONException {
         // change JSONObject to Java Class
+        String objectId = obj.getString("id");
         String userId = obj.getString("userId");
         String name = obj.getString("name");
         String email = obj.getString("email");
         String password = obj.getString("password");
         String location = obj.getString("location");
-        return new User(userId,name,email,password,location);
+        double last_location_lat = obj.getDouble("last-location-lat");
+        double last_location_long = obj.getDouble("last-location-long");
+        return new User(objectId,userId,name,email,password,location,last_location_lat,last_location_long);
     }
 
     private Friends convertJSONObjectToFriends (JSONObject obj) throws JSONException {
         String userEmail = obj.getString("userEmail");
         String friendEmail = obj.getString("friendEmail");
         return new Friends(userEmail,friendEmail);
+    }
+
+    public void setLastLocation (String userEmail, double latitude, double longitude){
+        // get user object
+        // update user
     }
 }

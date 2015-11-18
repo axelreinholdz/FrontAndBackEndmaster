@@ -17,6 +17,7 @@ import java.io.InputStreamReader;
  * Created by IITSLoan on 14/11/15.
  */
 public class Question {
+    private String objectId;
     private int QuestionNo;
     private String QuestionText;
     private String AnswerText;
@@ -25,24 +26,18 @@ public class Question {
     private double LocationLongitude;
     private String QuestionPic;
 
-    public Question(int QuestionNo,
-                    String QuestionText,
-                    String AnswerText,
-                    String Hint1,
-                    double LocationLatitude,
-                    double LocationLongitude,
-                    String QuestionPic){
-        this.QuestionNo = QuestionNo;
-        this.QuestionText  = QuestionText;
-        this.AnswerText = AnswerText;
-        this.Hint1 = Hint1;
-        this.LocationLatitude = LocationLatitude;
-        this.LocationLongitude = LocationLongitude;
-        this.QuestionPic = QuestionPic;
+    public Question(){
     }
 
-    public Question(){
-
+    public Question(String objectId, int questionNo, String questionText, String answerText, String hint1, double locationLatitude, double locationLongitude, String questionPic) {
+        this.objectId = objectId;
+        QuestionNo = questionNo;
+        QuestionText = questionText;
+        AnswerText = answerText;
+        Hint1 = hint1;
+        LocationLatitude = locationLatitude;
+        LocationLongitude = locationLongitude;
+        QuestionPic = questionPic;
     }
 
     //Get method - Haven't thought any cases where we need to use SET methods
@@ -72,5 +67,13 @@ public class Question {
 
     public String getQuestionPic(){
         return QuestionPic;
+    }
+
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
     }
 }
