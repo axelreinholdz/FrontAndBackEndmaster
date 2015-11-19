@@ -68,15 +68,10 @@ public class LocationFragment extends Fragment{
                 double longitude = q.getLocationLongitude();
                 double latitude = q.getLocationLatitude();
 
-                boolean checkLocation ;
-
-                checkLocation = gpsManager.isAtRightLocation(getActivity(),latitude,longitude,email);
-
+                boolean checkLocation = gpsManager.isAtRightLocation(getActivity(),latitude,longitude,email);
 
 
                 if(checkLocation) {
-
-
 
                     if(q.getQuestionNo() == 2){
 

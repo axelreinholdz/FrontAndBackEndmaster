@@ -67,7 +67,6 @@ public class UserManager {
                 propertyArray.put(smallObj);
                 smallObj = new JSONObject();
 
-
                 bigObj.put("country","Singapore");
                 bigObj.put("region","Singapore");
                 bigObj.put("city","Singapore");
