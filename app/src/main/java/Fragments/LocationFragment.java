@@ -43,6 +43,7 @@ public class LocationFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootVier = inflater.inflate(R.layout.location_page, container, false);
         final FragmentManager fm = getFragmentManager();
+        String grNumber = getArguments().getString("GrNumber");
 
         photoCapturedImageView = (ImageView) rootVier.findViewById(R.id.imageView_picture);
 
@@ -54,17 +55,17 @@ public class LocationFragment extends Fragment{
         UserManager userManager = new UserManager();
         final User u = userManager.getUserByEmail(email,getActivity());
 
-        QuestionManager qm = new QuestionManager();
-        final Question q = qm.getQuestionByNumber(1, getActivity());
+        final GameRegistrationManager gm = new GameRegistrationManager();
+        final GameRegistration gr = gm.getGameRegistrationByObjectId(grNumber);
 
-        textViewTakePicture.setText("Take a picture when you're at "+q.getAnswerText());
+        QuestionManager qm = new QuestionManager();
+        final Question q = qm.getQuestionByNumber(gr.getCurrentQuestionNo(), getActivity());
+
+        textViewTakePicture.setText("Take a picture when you're at " + q.getAnswerText());
 
         sendLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //checkLocation
-
-
                 GPSManager gpsManager = new GPSManager();
                 double longitude = q.getLocationLongitude();
                 double latitude = q.getLocationLatitude();
@@ -73,14 +74,42 @@ public class LocationFragment extends Fragment{
 
                 checkLocation = gpsManager.isAtRightLocation(getActivity(),latitude,longitude,email);
 
-                if(checkLocation){
-                    /*
-                    GameRegistrationManager gameRegistrationManager = new GameRegistrationManager();
-                    GameRegistration gr = gameRegistrationManager.updateEndDateTime("1362"); // change 1362 to gameregistration id
-                    gameRegistrationManager.updateDuration(gr);
-                    */
+                if(checkLocation) {
 
-                    fm.beginTransaction().replace(R.id.content_frame, new FinishedFragment()).commit();
+
+                    if(q.getQuestionNo() == 2){
+
+                        GameRegistrationManager gmNew = new GameRegistrationManager();
+                        GameRegistration grNew = gmNew.getGameRegistrationByObjectId(gr.getObjectId());
+                        grNew = gmNew.updateEndDateTime(grNew.getObjectId());
+                        gmNew.updateDuration(grNew);
+
+
+                        Fragment fr = new FinishedFragment();
+                        android.app.FragmentTransaction ft = fm.beginTransaction();
+                        Bundle args = new Bundle();
+                        args.putString("GrNumber", grNew.getObjectId());
+                        fr.setArguments(args);
+                        ft.replace(R.id.content_frame, fr);
+                        ft.commit();
+
+                     }
+                    else{
+
+                        GameRegistrationManager gmNew = new GameRegistrationManager();
+                        GameRegistration grNew = gmNew.getGameRegistrationByObjectId(gr.getObjectId());
+                        gmNew.updateCurrentQuestionNo(grNew.getObjectId(),Integer.toString(grNew.getCurrentQuestionNo()));
+
+                        Fragment fr = new QuestionFragment();
+                        android.app.FragmentTransaction ft = fm.beginTransaction();
+                        Bundle args = new Bundle();
+                        args.putString("GrNumber", grNew.getObjectId());
+                        fr.setArguments(args);
+                        ft.replace(R.id.content_frame, fr);
+                        ft.commit();
+                    }
+
+
                 }
                 else{
                     Toast.makeText(getActivity(), "Wrong Location", Toast.LENGTH_SHORT).show();

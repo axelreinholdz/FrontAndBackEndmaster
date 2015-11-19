@@ -1,5 +1,7 @@
 package controller;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -17,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
@@ -31,6 +34,30 @@ public class HttpUtility {
     public String download(String url) throws ExecutionException, InterruptedException {
         return new DownloadTask().execute(url).get();
     }
+
+
+    public Bitmap loadImage(String imageURL) throws ExecutionException, InterruptedException {
+        Bitmap bitmap = new ImageTask().execute(imageURL).get();
+        return bitmap;
+    }
+
+    private class ImageTask extends AsyncTask<String, Void, Bitmap>{
+        @Override
+        protected Bitmap doInBackground(String... urls){
+            Bitmap bitmap = null;
+            try {
+                bitmap = BitmapFactory.decodeStream((InputStream) new URL(urls[0]).getContent());
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println(bitmap.getByteCount());
+
+            return bitmap;
+        }
+    }
+
 
     private class DownloadTask extends AsyncTask<String, Void, String> {
 
@@ -164,11 +191,9 @@ public class HttpUtility {
 
             try {
                 HttpDelete httpDelete = new HttpDelete(requestUrl);
-//                httpDelete.setEntity(new StringEntity(jsonInput));
                 httpDelete.setHeader("Accept", "application/json");
                 httpDelete.setHeader("Content-type", "application/json");
                 HttpResponse response =  new DefaultHttpClient().execute(httpDelete);
-//                System.out.println(response.getStatusLine().getStatusCode());
 
                 InputStream inputStream = response.getEntity().getContent();
                 result=convertInputStreamToString(inputStream);

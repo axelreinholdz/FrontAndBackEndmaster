@@ -3,26 +3,18 @@ package Fragments;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.melker.mapping.MainActivity;
 import com.example.melker.mapping.R;
 import com.example.melker.mapping.StringArrayAdapter;
-import com.example.melker.mapping.Users;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import controller.GameRegistrationManager;
-import controller.UserManager;
-import model.Game;
 import model.GameRegistration;
-import model.User;
 
 /**
  * Created by Melker on 2015-11-02.

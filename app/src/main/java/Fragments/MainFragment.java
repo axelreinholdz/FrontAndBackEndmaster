@@ -18,6 +18,7 @@ import com.example.melker.mapping.R;
 import controller.GameRegistrationManager;
 import controller.QuestionManager;
 import controller.UserManager;
+import model.GameRegistration;
 import model.Question;
 import model.User;
 
@@ -40,18 +41,20 @@ public class MainFragment extends Fragment {
 
         final GameRegistrationManager gameRegistrationManager = new GameRegistrationManager();
 
-
-
         //if user already have unfinished game continue button visible true
 
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //add game and user to gameRegistration
+                GameRegistration gr = gameRegistrationManager.createGameRegistration(u.getUserId());
 
-                gameRegistrationManager.createGameRegistration(u.getUserId());
-
-                fm.beginTransaction().replace(R.id.content_frame, new QuestionFragment()).commit();
+                Fragment fr=new QuestionFragment();
+                android.app.FragmentTransaction ft=fm.beginTransaction();
+                Bundle args = new Bundle();
+                args.putString("GrNumber", gr.getObjectId());
+                fr.setArguments(args);
+                ft.replace(R.id.content_frame, fr);
+                ft.commit();
             }
         });
 

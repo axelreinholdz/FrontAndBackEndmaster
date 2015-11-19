@@ -26,7 +26,6 @@ public class GameManager {
 
         try {
             HttpUtility httpUtility = new HttpUtility();
-//            result = httpUtility.HttpGETObjectString(url);
 
             //parse String to JSONObject
             JSONObject obj = new JSONObject(result);

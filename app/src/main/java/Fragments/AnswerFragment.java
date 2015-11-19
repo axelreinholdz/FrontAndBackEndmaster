@@ -22,7 +22,10 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import controller.GameRegistrationManager;
 import controller.QuestionManager;
+import model.Game;
+import model.GameRegistration;
 import model.Question;
 
 /**
@@ -32,28 +35,41 @@ public class AnswerFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootVier = inflater.inflate(R.layout.answer_page, container, false);
+        final FragmentManager fm = getFragmentManager();
+        String grNumber = getArguments().getString("GrNumber");
+
         final TextView textViewFunFact = (TextView) rootVier.findViewById(R.id.textView_funFact);
         final TextView textViewInstruction = (TextView) rootVier.findViewById(R.id.textView_instruction);
         final TextView textViewLocation = (TextView) rootVier.findViewById(R.id.textView_location);
         ImageView questionImageView = (ImageView) rootVier.findViewById(R.id.imageView_questionPicture) ;
 
-        final FragmentManager fm = getFragmentManager();
+        GameRegistrationManager gm = new GameRegistrationManager();
+        final GameRegistration gr = gm.getGameRegistrationByObjectId(grNumber);
 
 
         QuestionManager qm = new QuestionManager();
-        final Question q = qm.getQuestionByNumber(1, getActivity());
+        final Question q = qm.getQuestionByNumber(gr.getCurrentQuestionNo(), getActivity());
 
-        textViewFunFact.setText("Fun fact: "+q.getHint1());
+        questionImageView.setImageBitmap(qm.loadImage(q.getQuestionPic()));
+
+        textViewFunFact.setText(""+q.getHint1());
 
         textViewLocation.setText("Welcome to: "+q.getAnswerText());
 
-        textViewInstruction.setText("Go to "+q.getAnswerText()+" to get your next location");
+        textViewInstruction.setText("Go to "+q.getAnswerText()+"");
 
         ImageButton nextbtn = (ImageButton) rootVier.findViewById(R.id.nextqBtn);
         nextbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fm.beginTransaction().replace(R.id.content_frame, new LocationFragment()).commit();
+
+                Fragment fr=new LocationFragment();
+                android.app.FragmentTransaction ft=fm.beginTransaction();
+                Bundle args = new Bundle();
+                args.putString("GrNumber", gr.getObjectId());
+                fr.setArguments(args);
+                ft.replace(R.id.content_frame, fr);
+                ft.commit();
 
             }
         });

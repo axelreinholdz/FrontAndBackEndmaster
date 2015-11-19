@@ -1,6 +1,7 @@
 package controller;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -18,6 +19,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Iris on 14/11/2015.
@@ -77,16 +79,7 @@ public class QuestionManager {
     public Question getQuestionById(int QuestionNo, Context context) {
         //id from SYMPLCMS, set STRING to avoid CONVERTING INT TO STRING
         String[] questionArray = {"1248","1250","1316"};
-        String url = "";
-
-//        if (QuestionNo == 1) {
-//            url = "http://161.202.13.188:9000/api/object/get/1248";
-//        } else if (QuestionNo == 2) {
-//            url = "http://161.202.13.188:9000/api/object/get/1250";
-//        } else if (QuestionNo == 3) {
-//            url = "http://161.202.13.188:9000/api/object/get/1316";
-//        }
-        url = "http://161.202.13.188:9000/api/object/get/"+questionArray[QuestionNo - 1];
+        String url = "http://161.202.13.188:9000/api/object/get/"+questionArray[QuestionNo - 1];
 
         Question newQuestion = new Question();
         String result = "";
@@ -125,6 +118,19 @@ public class QuestionManager {
         return newQuestion;
     }
 
+
+    public Bitmap loadImage(String imageURL){
+        HttpUtility httpUtility = new HttpUtility();
+        Bitmap bitmap = null;
+        try {
+            bitmap = httpUtility.loadImage(imageURL);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return bitmap;
+    }
 
 
 

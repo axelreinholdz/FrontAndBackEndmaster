@@ -30,6 +30,26 @@ public class GameRegistrationManager {
     public GameRegistrationManager() {
     }
 
+
+    public GameRegistration getGameRegistrationByObjectId(String objectId){
+
+        GameRegistration gameRegistration = new GameRegistration();
+        HttpUtility httpUtility = new HttpUtility();
+        String url = "http://161.202.13.188:9000/api/object/get/"+objectId;
+
+        try {
+            String result = httpUtility.download(url);
+            JSONObject obj = new JSONObject(result);
+            gameRegistration = convertJSONObjectToGameRegistration(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return gameRegistration;
+
+    }
+
+
     public GameRegistration getGameRegistrationByUserIdAndGameId(String userId, int gameId, Context context){
 
         GameRegistration gameRegistration = new GameRegistration();

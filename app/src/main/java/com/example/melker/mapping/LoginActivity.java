@@ -24,8 +24,7 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;*/
 
 public class LoginActivity extends Activity {
-   // LoginButton loginButton;
-   // CallbackManager callbackManager;
+
     private TextView info;
 
     @Override

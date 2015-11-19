@@ -313,11 +313,12 @@ public class UserManager {
             return new User(objectId,userId,name,email,password,location,last_location_lat,last_location_long);
         }
 
-        private Friends convertJSONObjectToFriends (JSONObject obj) throws JSONException {
-            String userEmail = obj.getString("userEmail");
-            String friendEmail = obj.getString("friendEmail");
-            return new Friends(userEmail,friendEmail);
-        }
+    private Friends convertJSONObjectToFriends (JSONObject obj) throws JSONException {
+        String objectId = obj.getString("objectId");
+        String userEmail = obj.getString("userEmail");
+        String friendEmail = obj.getString("friendEmail");
+        return new Friends(objectId, userEmail,friendEmail);
+    }
 
         public void setLastLocation (String userEmail, double latitude, double longitude){
             // get user object

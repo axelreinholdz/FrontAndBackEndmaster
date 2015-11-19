@@ -9,9 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.melker.mapping.R;
+
+import controller.GameRegistrationManager;
+import model.GameRegistration;
 
 /**
  * Created by axelreinholdz on 2015-11-18.
@@ -25,6 +29,14 @@ public class FinishedFragment extends Fragment {
         View rootVier = inflater.inflate(R.layout.finished_page, container, false);
         final FragmentManager fm = getFragmentManager();
 
+        TextView textViewTime = (TextView) rootVier.findViewById(R.id.textView_finishedTime);
+
+        String grNumber = getArguments().getString("GrNumber");
+
+        GameRegistrationManager gm = new GameRegistrationManager();
+        GameRegistration gr = gm.getGameRegistrationByObjectId(grNumber);
+
+        textViewTime.setText("Time: "+gm.printDuration(gr.getDuration()));
 
 
         ImageButton restartBtn = (ImageButton) rootVier.findViewById(R.id.imageButton_restart);
@@ -43,9 +55,6 @@ public class FinishedFragment extends Fragment {
                 fm.beginTransaction().replace(R.id.content_frame, new ToplistFragment()).commit();
             }
         });
-
-
-
 
 
 

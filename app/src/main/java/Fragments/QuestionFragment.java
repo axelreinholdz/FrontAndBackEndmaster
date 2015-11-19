@@ -16,7 +16,9 @@ import android.widget.Toast;
 import com.example.melker.mapping.MainActivity;
 import com.example.melker.mapping.R;
 
+import controller.GameRegistrationManager;
 import controller.QuestionManager;
+import model.GameRegistration;
 import model.Question;
 
 /**
@@ -28,15 +30,20 @@ public class QuestionFragment extends Fragment{
         final View rootVier = inflater.inflate(R.layout.question_page
                 , container, false);
 
+        String grNumber = getArguments().getString("GrNumber");
 
         final FragmentManager fm = getFragmentManager();
 
         TextView questionTextView = (TextView) rootVier.findViewById(R.id.textView_question);
         final EditText answerEditText = (EditText) rootVier.findViewById(R.id.editText_answer);
 
+         GameRegistrationManager gm = new GameRegistrationManager();
+
+         final GameRegistration gr = gm.getGameRegistrationByObjectId(grNumber);
+
 
          QuestionManager qm = new QuestionManager();
-         final Question q = qm.getQuestionByNumber(1, getActivity());
+         final Question q = qm.getQuestionByNumber(gr.getCurrentQuestionNo(), getActivity());
 
          questionTextView.setText(q.getQuestionText());
 
@@ -48,11 +55,14 @@ public class QuestionFragment extends Fragment{
 
                 String answer = answerEditText.getText().toString();
 
-                Log.d("Anwser",answer);
-
                 if(answer.equalsIgnoreCase(q.getAnswerText())){
-
-                    fm.beginTransaction().replace(R.id.content_frame, new AnswerFragment()).commit();
+                    Fragment fr=new AnswerFragment();
+                    android.app.FragmentTransaction ft=fm.beginTransaction();
+                    Bundle args = new Bundle();
+                    args.putString("GrNumber", gr.getObjectId());
+                    fr.setArguments(args);
+                    ft.replace(R.id.content_frame, fr);
+                    ft.commit();
                 }
                 else{
                     Toast.makeText(getActivity(), "Wrong Answer", Toast.LENGTH_SHORT).show();
