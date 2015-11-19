@@ -314,7 +314,7 @@ public class UserManager {
         }
 
     private Friends convertJSONObjectToFriends (JSONObject obj) throws JSONException {
-        String objectId = obj.getString("objectId");
+        String objectId = obj.getString("id");
         String userEmail = obj.getString("userEmail");
         String friendEmail = obj.getString("friendEmail");
         return new Friends(objectId, userEmail,friendEmail);

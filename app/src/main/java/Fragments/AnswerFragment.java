@@ -52,11 +52,11 @@ public class AnswerFragment extends Fragment {
 
         questionImageView.setImageBitmap(qm.loadImage(q.getQuestionPic()));
 
-        textViewFunFact.setText(""+q.getHint1());
+        textViewFunFact.setText(q.getHint1());
 
-        textViewLocation.setText("Welcome to: "+q.getAnswerText());
+        textViewLocation.setText("Welcome to, "+q.getAnswerText());
 
-        textViewInstruction.setText("Go to "+q.getAnswerText()+"");
+        textViewInstruction.setText("Go to "+q.getAnswerText());
 
         ImageButton nextbtn = (ImageButton) rootVier.findViewById(R.id.nextqBtn);
         nextbtn.setOnClickListener(new View.OnClickListener() {

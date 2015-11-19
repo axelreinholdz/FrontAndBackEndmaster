@@ -40,9 +40,9 @@ public class FriendsManager {
     }
 
     private Friends convertJSONObjectToFriends(JSONObject obj) throws JSONException {
+        String objectId = obj.getString("id");
         String userEmail = obj.getString("userEmail");
         String friendEmail = obj.getString("friendEmail");
-        String objectId = obj.getString("id");
         return new Friends(objectId, userEmail, friendEmail);
     }
 

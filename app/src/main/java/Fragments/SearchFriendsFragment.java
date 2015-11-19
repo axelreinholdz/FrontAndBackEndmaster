@@ -7,14 +7,18 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.melker.mapping.R;
 import com.example.melker.mapping.StringArrayAdapter;
 
 import java.util.ArrayList;
 
+import controller.FriendsManager;
 import controller.UserManager;
 import model.User;
 
@@ -30,9 +34,12 @@ public class SearchFriendsFragment extends Fragment{
         View rootVier = inflater.inflate(R.layout.searchfriendfragment, container, false);
         final FragmentManager fm = getFragmentManager();
 
+        final String email = getActivity().getIntent().getStringExtra("email");
 
-        UserManager userManager = new UserManager();
-        ArrayList<User> userList = userManager.getAllUsers(getActivity());
+        final UserManager userManager = new UserManager();
+        final ArrayList<User> userList = userManager.getAllUsers(getActivity());
+
+        final FriendsManager friendsManager = new FriendsManager();
 
         String [] usersArray = new String [userList.size()];
 
@@ -43,10 +50,45 @@ public class SearchFriendsFragment extends Fragment{
             i++;
         }
 
-        ListView lv = (ListView) rootVier.findViewById(R.id.listView_usersList);
+        final ListView lv = (ListView) rootVier.findViewById(R.id.listView_usersList);
+
+        final EditText editTextAdd = (EditText) rootVier.findViewById(R.id.EditText_userEmail);
 
         StringArrayAdapter ad = new StringArrayAdapter(usersArray, getActivity());
         lv.setAdapter(ad);
+
+
+
+        //add button add friend
+
+        ImageButton addBtn = (ImageButton) rootVier.findViewById(R.id.imageButton_addFriend);
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String friendEmail = editTextAdd.getText().toString();
+
+                User checkUser = userManager.getUserByEmail(friendEmail,getActivity());
+
+                if(checkUser.getName()!= null){
+                    friendsManager.addFriends(email,friendEmail);
+                    Toast.makeText(getActivity(), userManager.getUserByEmail(friendEmail,getActivity()).getName() +" added as friend", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(getActivity(), "No user found", Toast.LENGTH_SHORT).show();
+                }
+
+
+
+            }
+        });
+
+
+
+
+
+
+
 
         return rootVier;
     }

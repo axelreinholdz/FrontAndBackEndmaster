@@ -52,8 +52,6 @@ public class LocationFragment extends Fragment{
         final TextView textViewTakePicture = (TextView) rootVier.findViewById(R.id.textView_takePicture);
 
         final String email = getActivity().getIntent().getStringExtra("email");
-        UserManager userManager = new UserManager();
-        final User u = userManager.getUserByEmail(email,getActivity());
 
         final GameRegistrationManager gm = new GameRegistrationManager();
         final GameRegistration gr = gm.getGameRegistrationByObjectId(grNumber);
@@ -74,7 +72,10 @@ public class LocationFragment extends Fragment{
 
                 checkLocation = gpsManager.isAtRightLocation(getActivity(),latitude,longitude,email);
 
+
+
                 if(checkLocation) {
+
 
 
                     if(q.getQuestionNo() == 2){
@@ -83,7 +84,6 @@ public class LocationFragment extends Fragment{
                         GameRegistration grNew = gmNew.getGameRegistrationByObjectId(gr.getObjectId());
                         grNew = gmNew.updateEndDateTime(grNew.getObjectId());
                         gmNew.updateDuration(grNew);
-
 
                         Fragment fr = new FinishedFragment();
                         android.app.FragmentTransaction ft = fm.beginTransaction();
